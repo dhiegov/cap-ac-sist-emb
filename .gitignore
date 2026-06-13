@@ -1,0 +1,19 @@
+# Build artifacts
+Debug/
+Release/
+*.elf
+*.bin
+*.hex
+*.map
+
+# IDE metadata and local configs
+.settings/
+.metadata/
+*.launch
+*.log
+
+# Static analysis and debug files
+*.su
+*.d
+*.o
+*.obj
