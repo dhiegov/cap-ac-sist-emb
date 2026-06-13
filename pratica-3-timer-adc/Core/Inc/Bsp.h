@@ -1,6 +1,8 @@
 #ifndef BSP_H
 #define BSP_H
 
+typedef int bool;
+
 /** @brief Inicializar a placa e periféricos. */
 void Bsp_Init(void);
 

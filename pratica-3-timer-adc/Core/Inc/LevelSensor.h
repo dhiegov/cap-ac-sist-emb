@@ -1,6 +1,8 @@
 #ifndef LEVEL_SENSOR_H
 #define LEVEL_SENSOR_H
 
+#include "Bsp.h"
+
 #define dLEVEL_SENSOR_SAMPLE_NUM 20
 #define dLEVEL_SENSOR_ADC_MAX 4095
 
