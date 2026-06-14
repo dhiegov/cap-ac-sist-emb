@@ -25,6 +25,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Bsp.h"
+#include "LevelSensor.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -62,6 +64,13 @@ int __io_putchar(int ch)
     HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
     return ch;
 }
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM3) {
+		timerElapsedFlag = 1;
+		//printf("tim3 elapsed flag = 1");
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -97,17 +106,24 @@ int main(void)
   MX_TIM3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim3);
+  Bsp_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (Bsp_GetTimerOverflowFlag()) {
+		  Bsp_ClearTimerFlag();
+		  LevelSensor_AddSample(Bsp_ReadAdcPolling(&hadc1));
+	  }
+	  if (LevelSensor_IsReady()) {
+		  LevelSensor_ClearReady();
+		  printf("ADC: %d%%\n", LevelSensor_GetLastMean());
+		  //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	  }
     /* USER CODE END WHILE */
-
-	  printf("opa\n");
-	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

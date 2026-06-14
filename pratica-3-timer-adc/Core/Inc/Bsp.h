@@ -1,10 +1,14 @@
 #ifndef BSP_H
 #define BSP_H
 
+#include "main.h"
+
 typedef int bool;
 
 #define dTRUE 1
 #define dFALSE 0
+
+extern int timerElapsedFlag;
 
 /** @brief Inicializar a placa e periféricos. */
 void Bsp_Init(void);
@@ -21,6 +25,6 @@ void Bsp_ClearTimerFlag(void);
 /** @brief Retorne leitura do ADC por polling.
  *
  * Bloqueante. */
-int Bsp_ReadAdcPolling(void);
+int Bsp_ReadAdcPolling(ADC_HandleTypeDef* hadc);
 
 #endif
