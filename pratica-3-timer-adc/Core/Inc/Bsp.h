@@ -3,6 +3,9 @@
 
 typedef int bool;
 
+#define dTRUE 1
+#define dFALSE 0
+
 /** @brief Inicializar a placa e periféricos. */
 void Bsp_Init(void);
 
